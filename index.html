@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RumiMarket POS Cloud & Facturación Electrónica</title>
+    <meta name="description" content="Sistema de Punto de Venta (POS) en la nube y Facturación Electrónica para RUMI Market - Tarapoto" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Login View Shell -->
+    <main id="login-view" class="login-shell">
+      <section class="login-panel">
+        <div class="brand-lockup">
+          <div class="brand-mark">R</div>
+          <div>
+            <h1>Rumi Market</h1>
+            <p>Sistema POS Cloud</p>
+          </div>
+        </div>
+
+        <form id="login-form" class="login-form">
+          <label>
+            Usuario
+            <div class="field">
+              <i data-lucide="user-round"></i>
+              <input id="login-user" type="text" autocomplete="username" placeholder="Nombre de usuario" required />
+            </div>
+          </label>
+          <label>
+            Contraseña
+            <div class="field">
+              <i data-lucide="lock-keyhole"></i>
+              <input id="login-password" type="password" autocomplete="current-password" placeholder="••••••••" required />
+              <button type="button" class="toggle-password" id="toggle-password-btn" title="Mostrar/Ocultar contraseña">
+                <i data-lucide="eye" id="toggle-password-icon"></i>
+              </button>
+            </div>
+          </label>
+          <button class="login-btn" type="submit">
+            <i data-lucide="log-in"></i>
+            Ingresar al POS
+          </button>
+        </form>
+
+        <div class="login-metrics" aria-label="Resumen operativo">
+          <div>
+            <strong>&lt; 30 s</strong>
+            <span>Tiempo Venta</span>
+          </div>
+          <div>
+            <strong>5 Medios</strong>
+            <span>Formas Pago</span>
+          </div>
+          <div>
+            <strong>SUNAT</strong>
+            <span>PSE Sincro</span>
+          </div>
+        </div>
+
+        <!-- Quick Login Demo Profiles -->
+        <div class="quick-login-section">
+          <h3>Accesos Rápidos Demo</h3>
+          <div class="quick-login-grid">
+            <button type="button" class="quick-login-card" data-fill-user="joy" data-fill-pass="123">
+              <span class="avatar admin-avatar">JC</span>
+              <div class="quick-info">
+                <strong>Joy Correa (Admin)</strong>
+                <small>User: joy | Pass: 123</small>
+              </div>
+            </button>
+            <button type="button" class="quick-login-card" data-fill-user="frank" data-fill-pass="123">
+              <span class="avatar cashier-avatar">FB</span>
+              <div class="quick-info">
+                <strong>Frank Bardalez (Cajero)</strong>
+                <small>User: frank | Pass: 123</small>
+              </div>
+            </button>
+            <button type="button" class="quick-login-card" data-fill-user="belther" data-fill-pass="123">
+              <span class="avatar cashier-avatar">BR</span>
+              <div class="quick-info">
+                <strong>Belther Rodas (Cajero)</strong>
+                <small>User: belther | Pass: 123</small>
+              </div>
+            </button>
+            <button type="button" class="quick-login-card" data-fill-user="nayeli" data-fill-pass="123">
+              <span class="avatar cashier-avatar">NA</span>
+              <div class="quick-info">
+                <strong>Nayeli Arevalo (Cajero)</strong>
+                <small>User: nayeli | Pass: 123</small>
+              </div>
+            </button>
+            <button type="button" class="quick-login-card" data-fill-user="ariana" data-fill-pass="123">
+              <span class="avatar cashier-avatar">AR</span>
+              <div class="quick-info">
+                <strong>Ariana Rosales (Cajero)</strong>
+                <small>User: ariana | Pass: 123</small>
+              </div>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="login-aside">
+        <div class="hero-copy">
+          <span class="eyebrow">Jr. Bolognesi 1455 - Tarapoto</span>
+          <h2>Ventas ágiles, control de existencias y facturación fiscal.</h2>
+          <p>Prototipo premium diseñado para la digitalización de Rumi Market. Administre caja, inventarios con alarmas y reportes en tiempo real.</p>
+        </div>
+        <div class="terminal-preview">
+          <div class="preview-row">
+            <span>Última venta</span>
+            <strong>S/ 38.90</strong>
+          </div>
+          <div class="preview-row">
+            <span>Comprobante SUNAT</span>
+            <strong>B001-00235 (Enviado)</strong>
+          </div>
+          <div class="preview-row">
+            <span>Actualización Stock</span>
+            <strong>Descuento Inmediato</strong>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- App View Shell -->
+    <main id="app-view" class="app-shell hidden">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="brand-lockup compact">
+            <div class="brand-mark">R</div>
+            <div>
+              <h1>Rumi Market</h1>
+              <p>POS Cloud</p>
+            </div>
+          </div>
+          <nav class="nav-tabs" aria-label="Módulos del Sistema">
+            <button class="nav-tab active" data-view="pos">
+              <i data-lucide="shopping-cart"></i>
+              <span>Punto de Venta</span>
+            </button>
+            <button class="nav-tab" data-view="inventory">
+              <i data-lucide="package"></i>
+              <span>Inventario</span>
+              <span id="stock-alert-badge" class="nav-tab-badge hidden">0</span>
+            </button>
+            <button class="nav-tab" data-view="billing">
+              <i data-lucide="file-check-2"></i>
+              <span>Facturación</span>
+            </button>
+            <button class="nav-tab" data-view="reports">
+              <i data-lucide="bar-chart-3"></i>
+              <span>Reportes</span>
+            </button>
+          </nav>
+        </div>
+
+        <div class="topbar-right">
+          <div class="sync-status">
+            <span class="sync-dot"></span>
+            <span>Cloud Activo</span>
+          </div>
+          <div id="clock" class="topbar-clock">--:--:--</div>
+          
+          <div id="user-profile-tag" class="user-profile-box">
+            <strong>Cargando...</strong>
+          </div>
+
+          <button id="theme-toggle" class="icon-btn-round" title="Cambiar Tema" aria-label="Cambiar Tema">
+            <i data-lucide="moon"></i>
+          </button>
+          
+          <button id="logout-button" class="icon-btn-round" title="Cerrar Sesión" aria-label="Cerrar Sesión">
+            <i data-lucide="log-out"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- POS Module View -->
+      <section id="pos-view" class="view pos-layout active">
+        <div class="catalog-pane">
+          <div class="toolbar">
+            <div class="search-field">
+              <i data-lucide="search"></i>
+              <input id="product-search" type="search" placeholder="Buscar producto por nombre o SKU..." />
+            </div>
+            <!-- Barcode scan simulation button -->
+            <button id="barcode-scanner-simulator" class="scan-simulator-btn" title="Simular lector de código de barras">
+              <i data-lucide="barcode"></i>
+              <span>Escanear (Simulado)</span>
+            </button>
+            <!-- Toggle cart button -->
+            <button id="toggle-cart-btn" class="secondary-btn" title="Ocultar o mostrar el carrito">
+              <i data-lucide="sidebar"></i>
+              <span id="toggle-cart-text">Ocultar Carrito</span>
+            </button>
+          </div>
+          <div id="category-tabs" class="chip-row"></div>
+          <div id="product-grid" class="product-grid"></div>
+        </div>
+
+        <aside class="cart-pane" id="pos-cart-pane">
+          <div class="pane-header">
+            <h2><i data-lucide="shopping-basket"></i> Detalle de Venta</h2>
+            <span id="cart-count" class="count-pill">0</span>
+          </div>
+          
+          <div id="cart-list" class="cart-list"></div>
+          
+          <div class="cart-summary">
+            <div class="summary-row">
+              <span>Subtotal (Base Imponible)</span>
+              <strong id="subtotal">S/ 0.00</strong>
+            </div>
+            <div class="summary-row">
+              <span>IGV (18%)</span>
+              <strong id="tax">S/ 0.00</strong>
+            </div>
+            <div class="summary-row total">
+              <span>Total a pagar</span>
+              <strong id="total">S/ 0.00</strong>
+            </div>
+          </div>
+
+          <div class="doc-selector">
+            <span>Tipo de comprobante fiscal</span>
+            <div class="doc-buttons">
+              <button class="doc-btn active" data-document="Boleta">Boleta</button>
+              <button class="doc-btn" data-document="Factura">Factura</button>
+              <button class="doc-btn" data-document="Nota V.">Nota Venta</button>
+            </div>
+          </div>
+
+          <div id="customer-fields" class="customer-fields hidden">
+            <label>
+              DNI / RUC (Autofiltro Sunat)
+              <input id="customer-doc" type="text" placeholder="Ej: 20600000001" maxlength="11" />
+            </label>
+            <label>
+              Razón Social / Nombre Cliente
+              <input id="customer-name" type="text" placeholder="Cliente final / Empresa" />
+            </label>
+          </div>
+
+          <div class="payment-box">
+            <div class="payment-header">
+              <span>Forma de pago</span>
+              <label class="mixed-toggle-label">
+                <input id="mixed-toggle" type="checkbox" class="hidden" />
+                <span class="switch"><span></span></span>
+                <span>Pago mixto</span>
+              </label>
+            </div>
+            <div id="payment-methods" class="payment-selector"></div>
+            <!-- Dynamic Mixed payments panel -->
+            <div id="mixed-payments" class="mixed-payments-pane"></div>
+          </div>
+
+          <button id="confirm-sale" class="checkout-action-btn" type="button" disabled>
+            <span><i data-lucide="zap" style="width:16px; height:16px; display:inline-block; vertical-align:middle;"></i> Emitir Comprobante</span>
+            <small>Meta de atención: menos de 30 segundos</small>
+          </button>
+        </aside>
+      </section>
+
+      <!-- Inventory View -->
+      <section id="inventory-view" class="view content-view">
+        <div class="metric-grid three">
+          <article class="metric-card">
+            <span>Catálogo</span>
+            <strong id="metric-products">0</strong>
+            <small>Productos registrados</small>
+          </article>
+          <article class="metric-card warning" id="metric-alerts-card">
+            <span>Alertas Críticas</span>
+            <strong id="metric-alerts">0</strong>
+            <small>Existencias bajo mínimo</small>
+          </article>
+          <article class="metric-card success">
+            <span>Valorización Costo</span>
+            <strong id="metric-value">S/ 0.00</strong>
+            <small>Fórmula: Costo * Stock</small>
+          </article>
+        </div>
+
+        <!-- Cashier rights restriction board -->
+        <div id="restricted-notice" class="restricted-notice hidden">
+          <i data-lucide="shield-alert"></i>
+          <span>Modo Consulta: Los permisos de edición de stock, visualización de costos y registro de nuevos artículos están bloqueados para Cajeros. Inicie sesión como Administrador para modificar.</span>
+        </div>
+
+        <div class="table-panel">
+          <div class="table-toolbar">
+            <div class="search-field" style="max-width:320px;">
+              <i data-lucide="search"></i>
+              <input id="inventory-search" type="search" placeholder="Buscar por SKU o Nombre..." />
+            </div>
+            <select id="inventory-filter" aria-label="Filtrar por Categoría">
+              <option value="Todos">Todas las categorías</option>
+              <option value="Bebidas">Bebidas</option>
+              <option value="Snacks">Snacks</option>
+              <option value="Lácteos">Lácteos</option>
+              <option value="Abarrotes">Abarrotes</option>
+              <option value="Limpieza">Limpieza</option>
+            </select>
+            <button id="add-product-button" class="primary-btn admin-only" type="button">
+              <i data-lucide="plus"></i> Nuevo Artículo
+            </button>
+            <button id="export-inventory" class="secondary-btn" type="button">
+              <i data-lucide="download"></i> Exportar CSV
+            </button>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>SKU</th>
+                  <th>Detalle Producto</th>
+                  <th>Categoría</th>
+                  <th>Precio Venta</th>
+                  <th>Costo</th>
+                  <th>Existencia</th>
+                  <th>Alerta SUNAT</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="inventory-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Billing View -->
+      <section id="billing-view" class="view content-view">
+        <div class="metric-grid four">
+          <article class="metric-card">
+            <span>Emitidos hoy</span>
+            <strong id="metric-documents">0</strong>
+            <small>Transacciones totales</small>
+          </article>
+          <article class="metric-card success">
+            <span>Boletas (B001)</span>
+            <strong id="metric-boletas">0</strong>
+            <small>Comprobantes simples</small>
+          </article>
+          <article class="metric-card success">
+            <span>Facturas (F001)</span>
+            <strong id="metric-facturas">0</strong>
+            <small>Comprobantes con RUC</small>
+          </article>
+          <article class="metric-card warning" id="metric-pending-card">
+            <span>Pendiente SUNAT</span>
+            <strong id="metric-pending">0</strong>
+            <small>Comprobantes sin envío</small>
+          </article>
+        </div>
+
+        <div class="billing-grid">
+          <article class="sync-panel">
+            <div class="sync-panel-content">
+              <span>ESTADO DE PROVEEDOR PSE / OSE</span>
+              <h2>Sincronización Fiscal Cloud</h2>
+              <p>Envío automático y masivo de facturas, boletas y notas de venta al servidor de SUNAT. Cada sincronización firma digitalmente el XML y descarga la Constancia de Recepción CDR oficial.</p>
+            </div>
+            <button id="sync-sunat" class="sync-btn" type="button">
+              <i data-lucide="refresh-cw"></i> Sincronizar pendientes
+            </button>
+          </article>
+
+          <div class="table-panel">
+            <div class="table-toolbar">
+              <h2>Historial Tributario</h2>
+              <div class="doc-buttons" style="max-width:350px;">
+                <button class="doc-btn active" data-doc-filter="Todos">Todos</button>
+                <button class="doc-btn" data-doc-filter="Boleta">Boletas</button>
+                <button class="doc-btn" data-doc-filter="Factura">Facturas</button>
+                <button class="doc-btn" data-doc-filter="Nota V.">Notas</button>
+              </div>
+            </div>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Comprobante</th>
+                    <th>Tipo</th>
+                    <th>Cliente</th>
+                    <th>Hora</th>
+                    <th>Total</th>
+                    <th>Estado SUNAT</th>
+                    <th>Opciones</th>
+                  </tr>
+                </thead>
+                <tbody id="billing-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reports View -->
+      <section id="reports-view" class="view content-view">
+        <div class="metric-grid four">
+          <article class="metric-card success">
+            <span>Ventas del día</span>
+            <strong id="report-sales">S/ 0.00</strong>
+            <small id="report-date">Cargando...</small>
+          </article>
+          <article class="metric-card">
+            <span>Operaciones</span>
+            <strong id="report-transactions">0</strong>
+            <small>Boletas + Facturas + Notas</small>
+          </article>
+          <article class="metric-card accent">
+            <span>Ticket Promedio</span>
+            <strong id="report-average">S/ 0.00</strong>
+            <small>Valor promedio de compra</small>
+          </article>
+          <article class="metric-card warning">
+            <span>Ingreso Neto (Sin IGV)</span>
+            <strong id="report-net">S/ 0.00</strong>
+            <small>descontado IGV 18%</small>
+          </article>
+        </div>
+
+        <div class="report-grid">
+          <article class="chart-panel">
+            <h2>Curva de Ventas por Hora</h2>
+            <div id="hourly-chart" class="bar-chart"></div>
+          </article>
+          
+          <article class="chart-panel">
+            <h2>Métodos de Pago Utilizados</h2>
+            <div class="donut-container">
+              <div id="payment-donut" class="donut"></div>
+              <div id="payment-legend" class="legend"></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="table-panel">
+          <div class="table-toolbar">
+            <h2>Arqueo de Transacciones Diarias</h2>
+            <div class="doc-buttons" style="max-width:350px;">
+              <button class="doc-btn active" data-sale-filter="Todos">Todos</button>
+              <button class="doc-btn" data-sale-filter="Boleta">Boletas</button>
+              <button class="doc-btn" data-sale-filter="Factura">Facturas</button>
+              <button class="doc-btn" data-sale-filter="Nota V.">Notas</button>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>N° Comprobante</th>
+                  <th>Tipo</th>
+                  <th>Hora Emisión</th>
+                  <th>Cajero</th>
+                  <th>Método Pago</th>
+                  <th>Monto Total</th>
+                  <th>SUNAT Sincro</th>
+                </tr>
+              </thead>
+              <tbody id="sales-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Add/Edit Product Modal Dialog -->
+    <dialog id="product-dialog" class="modal">
+      <form id="product-form" method="dialog">
+        <div class="modal-header">
+          <h2 id="modal-title">Añadir producto</h2>
+          <button id="close-product-dialog" class="modal-close-btn" type="button" aria-label="Cerrar">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        
+        <div class="form-grid">
+          <label style="grid-column:1 / -1;">
+            Nombre del Producto
+            <input id="new-name" type="text" placeholder="Ej: Inca Kola 600ml" required />
+          </label>
+          <label>
+            Categoría
+            <select id="new-category">
+              <option>Bebidas</option>
+              <option>Snacks</option>
+              <option>Lácteos</option>
+              <option>Abarrotes</option>
+              <option>Limpieza</option>
+            </select>
+          </label>
+          <label>
+            SKU (Generado Aut.)
+            <input id="new-sku" type="text" required />
+          </label>
+          <label>
+            Precio de Venta (S/)
+            <input id="new-price" type="number" min="0.05" step="0.05" required />
+          </label>
+          <label>
+            Precio de Costo (S/)
+            <input id="new-cost" type="number" min="0.05" step="0.05" required />
+          </label>
+          <label style="grid-column:1 / -1;">
+            Stock Inicial (Unidades)
+            <input id="new-stock" type="number" min="0" step="1" required />
+          </label>
+          
+          <!-- Profit Margin live calculation -->
+          <div id="margin-live-preview" class="margin-preview">
+            <span>Ingrese Precio de Venta para estimar márgenes</span>
+          </div>
+        </div>
+        
+        <button class="btn-save" type="submit">
+          <i data-lucide="save"></i> Guardar producto
+        </button>
+      </form>
+    </dialog>
+
+    <!-- Thermal Receipt Modal Dialog -->
+    <dialog id="receipt-dialog" class="modal" style="max-width:370px;">
+      <div class="modal-header">
+        <h2>Vista de Comprobante</h2>
+        <button id="close-receipt" class="modal-close-btn" type="button" aria-label="Cerrar">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      
+      <div id="receipt-content"></div>
+      
+      <button id="print-receipt" class="primary-btn" type="button" style="width:100%; margin-top:16px;">
+        <i data-lucide="printer"></i> Imprimir comprobante
+      </button>
+    </dialog>
+
+    <!-- External Lucide and Application Scripts -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

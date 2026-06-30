@@ -1,0 +1,7 @@
+@import url('./modules/theme/theme.css');
+@import url('./modules/shared/shared.css');
+@import url('./modules/auth/auth.css');
+@import url('./modules/pos/pos.css');
+@import url('./modules/inventory/inventory.css');
+@import url('./modules/billing/billing.css');
+@import url('./modules/reports/reports.css');

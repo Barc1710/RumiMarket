@@ -1,0 +1,127 @@
+/* Billing module styles for RumiMarket */
+
+.billing-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+}
+
+.sync-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.sync-panel-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 70%;
+}
+
+.sync-panel-content h2 {
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.sync-panel-content p {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.sync-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--brand);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sync-btn:hover {
+  background: var(--brand-strong);
+  transform: translateY(-1px);
+}
+
+.sync-btn.loading {
+  background: var(--muted);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.sync-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--surface-soft);
+  border-radius: var(--radius-full);
+  margin-top: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.sync-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--brand);
+  border-radius: var(--radius-full);
+  transition: width 0.1s linear;
+}
+
+/* Receipt Actions in Billing Table */
+.receipt-action-btn {
+  border: 0;
+  background: transparent;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  color: var(--brand);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: var(--transition);
+}
+
+.receipt-action-btn:hover {
+  background: var(--brand-soft);
+}
+
+.download-xml-btn,
+.download-cdr-btn {
+  border: 0;
+  background: transparent;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: var(--transition);
+}
+
+.download-xml-btn:hover {
+  color: var(--blue);
+  background: var(--blue-soft);
+}
+
+.download-cdr-btn:hover {
+  color: var(--purple);
+  background: var(--purple-soft);
+}
