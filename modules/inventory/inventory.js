@@ -98,7 +98,17 @@ function updateSKUField() {
   else if (category === "Limpieza") prefix = "LIM";
 
   const matchingProducts = state.products.filter(p => p.sku.startsWith(prefix));
-  const count = matchingProducts.length + 1;
+  let maxNum = 0;
+  matchingProducts.forEach(p => {
+    const parts = p.sku.split("-");
+    if (parts.length === 2) {
+      const num = parseInt(parts[1], 10);
+      if (!isNaN(num) && num > maxNum) {
+        maxNum = num;
+      }
+    }
+  });
+  const count = maxNum + 1;
   skuInput.value = `${prefix}-${String(count).padStart(3, "0")}`;
 }
 
